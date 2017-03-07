@@ -8,73 +8,28 @@
 	var crumbs = document.querySelector('.crumbs_wrap');
 	var n = 0;
 
-	var treeArr = [{
-		floor: 0,
-		name: '微云',
-		id: 1,
-		pId: 0,
-		child: [{
-			floor: 1,
-			name: '前端课程',
-			id: 2,
-			pId: 1,
-			child: [{
-				floor: 2,
-				name: 'JS课程',
-				id: 3,
-				pId: 2
-			}, {
-				floor: 2,
-				name: 'HTML课程',
-				id: 4,
-				pId: 2
-			}, {
-				floor: 2,
-				name: 'CSS课程',
-				id: 5,
-				pId: 2,
-				child: [{
-					floor: 3,
-					name: '课程1',
-					id: 6,
-					pId: 5
-				}, {
-					floor: 3,
-					name: '课程2',
-					id: 7,
-					pId: 5
-				}, {
-					floor: 3,
-					name: '课程3',
-					id: 8,
-					pId: 5
-				}]
-			}]
-		}]
-	}]
-
 	var prev = '';
 	createBtn.floor = 1;
 	createBtn.pId = 1;
 	folderWrap.innerHTML = '';
 	crumbs.innerHTML = '';
-	createFolderList(folderWrap, treeArr, 1);
-	createTree(fileTree, treeArr);
-	createCrumbs(crumbs, treeArr, 1);
+	createFolderList(folderWrap, Data.file, 1);
+	createTree(fileTree, Data.file);
+	createCrumbs(crumbs, Data.file, 1);
 
 	//新建文件夹
 	createBtn.onclick = function() {
 		var newDir = {
 			floor: this.floor,
 			name: '新建文件夹',
-			id: getMaxId(treeArr),
+			id: getMaxId(Data.file),
 			pId: this.pId
 		}
 		folderWrap.innerHTML = '';
 
-		treeArrAddData(treeArr, this.floor, this.pId, newDir);
-		createTree(fileTree, treeArr);
-		createFolderList(folderWrap, treeArr, this.pId);
+		treeArrAddData(Data.file, this.floor, this.pId, newDir);
+		createTree(fileTree, Data.file);
+		createFolderList(folderWrap, Data.file, this.pId);
 	};
 
 	//生成树形图
@@ -112,8 +67,8 @@
 				prev = this;
 				createBtn.floor = this.floor + 1;
 				createBtn.pId = this.id;
-				createFolderList(folderWrap, treeArr, this.id);
-				createCrumbs(crumbs, treeArr, this.id)
+				createFolderList(folderWrap, Data.file, this.id);
+				createCrumbs(crumbs, Data.file, this.id);
 			}
 			span.innerHTML = item.name;
 			span.style.paddingLeft = 44 + (item.floor + 1) * 20 + 'px';
@@ -156,23 +111,14 @@
 		});
 	}
 
-	//生成面包屑
+	//生成面包屑导航
 	function createCrumbs(crumbs, data, id) {
-		data.forEach(function(item) {
-			if (item.id == id) {
-				for (var i = 0; i < item.floor; i++) {
-					var a = document.createElement('a');
-					a.href = 'javascript:;';
-					a.className = 'fl';
-					console.log(item.pId);
-					console.log(crumbVal(data, item.pId));
-					a.innerHTML = crumbVal(data, item.pId);
-					var span = document.createElement('span');
-					span.className = 'next fl ico_bg';
-					crumbs.appendChild(a);
-					crumbs.appendChild(span);
-				}
 
+		var crumbArr = cloud.getParentsById(data, id);
+		console.log(crumbArr);
+		crumbArr.reverse();
+		crumbArr.forEach(function(item, i) {
+			if (i === crumbArr.length - 1) {
 				var lastCrumb = document.createElement('a');
 				lastCrumb.href = 'javascript:;';
 				lastCrumb.className = 'last_crumbs fl pr';
@@ -182,26 +128,16 @@
 				lastCrumb.appendChild(bottomLine);
 				crumbs.appendChild(lastCrumb);
 			} else {
-				if (item.child) {
-					createCrumbs(crumbs, item.child, id)
-				}
+				var a = document.createElement('a');
+				a.href = 'javascript:;';
+				a.className = 'fl';
+				a.innerHTML = item.name;
+				var span = document.createElement('span');
+				span.className = 'next fl ico_bg';
+				crumbs.appendChild(a);
+				crumbs.appendChild(span);
 			}
 		})
-	}
-
-	var str;
-
-	function crumbVal(data, pId) {
-		data.forEach(function(item) {
-			if (item.id == pId) {
-				str = item.name;
-			} else {
-				if (item.child) {
-					crumbVal(item.child, pId);
-				}
-			}
-		})
-		return str;
 	}
 
 	//id加1

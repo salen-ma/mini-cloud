@@ -1,0 +1,29 @@
+/*文件树*/
+.file_tree{
+	width:270px;
+	height:530px;
+	border-right:2px solid #e1e8ed;
+	color:#889293;
+	white-space: nowrap;
+	overflow: auto;
+}
+.mini_cloud{
+	padding-top:9px;
+	font-size:16px;
+	line-height:36px;
+}
+.mini_cloud li span{
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 44px;
+	background:url(../img/ico.png) no-repeat;
+	-webkit-user-select: none;
+	cursor: default;
+}
+.mini_cloud li span.open{
+	background-position:0px -225px;
+}
+.mini_cloud li span.close{
+	background-position:0px -270px;
+}
