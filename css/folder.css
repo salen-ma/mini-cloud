@@ -60,18 +60,24 @@
 	color:#95acbe;
 	display: block;
 }
+.file_item.thumb span.active{
+	display: none;
+}
 .file_item.thumb input{
 	position: absolute;
-	width: 100%;
+	width: 70%;
+	height: 30px;
 	box-sizing: border-box;
 	text-align: center;
-	left:0;
+	left:15%;
 	bottom: 25px;
 	color:#95acbe;
 	margin: 0;
 	padding: 0;
-	height: 20px;
 	display: none;
+}
+.file_item.thumb input.active{
+	display: block;
 }
 .file_item .checkbox{
 	margin-top:10px;

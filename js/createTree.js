@@ -1,5 +1,7 @@
 //创建树形菜单函数
 function createTree(fileTree, data) {
+	fq.animate(alertBox,{top:-50},200);
+	stopCreate = false;
 	fileTree.innerHTML = '';
 	data.forEach(function(item, i) {
 		var li = document.createElement('li'),

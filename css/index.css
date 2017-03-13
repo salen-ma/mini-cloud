@@ -9,6 +9,19 @@ body{
 	height:662px;
 	background-color:#fff;
 }
+.alert{
+	display: inline-block;
+	position: absolute;
+	top:-50px;
+	left: 45%;
+	height: 40px;
+	padding:0 25px;
+	border-radius: 20px;
+	background-color: #e19186;
+	text-align: center;
+	line-height: 40px;
+	color:#fff;
+}
 .head{
 	height:52px;
 	padding:18px 40px 0 28px;
@@ -327,6 +340,12 @@ body{
 	background-color:#55addc;
 	left:0;
 	top:44px;
+}
+
+.file-wrap{
+	height: 440px;
+	padding-bottom: 40px;
+	overflow-y: auto;
 }
 
 

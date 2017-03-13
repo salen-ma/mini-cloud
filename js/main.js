@@ -17,7 +17,16 @@ var createBtn = btns[5];
 //面包屑导航父容器
 var crumbs = document.querySelector('.crumbs');
 
+//警告框
+var alertBox = document.querySelector('.alert');
+
+//判断是否允许新建
+var stopCreate = false;
+
+//用于判断最大id
 var n = 0;
+
 var prev = '';
+
 createBtn.floor = 1;
 createBtn.pId = 0;

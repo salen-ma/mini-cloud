@@ -1,4 +1,8 @@
+//创建面包屑导航
 function createCrumbs(crumbs, data, id) {
+	fq.animate(alertBox,{top:-50},200);
+	stopCreate = false;
+	
 	crumbs.innerHTML = '';
 	var str = `<a href="javascript:;" class="checkbox fl of" data-Id="${id}"></a>`;
 	var crumbArr = cloud.getParentsById(data, id);
@@ -17,4 +21,5 @@ function createCrumbs(crumbs, data, id) {
 	crumbs.innerHTML = str;
 
 	fileCheck();
+	curmbNav();
 }
