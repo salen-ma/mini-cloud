@@ -1,6 +1,8 @@
 //创建树形菜单函数
 function createTree(fileTree, data) {
-	fq.animate(alertBox,{top:-50},200);
+	fq.animate(alertBox, {
+		top: -50
+	}, 200);
 	stopCreate = false;
 	fileTree.innerHTML = '';
 	data.forEach(function(item, i) {
@@ -40,7 +42,7 @@ function createTree(fileTree, data) {
 		span.style.paddingLeft = 44 + (item.floor + 1) * 20 + 'px';
 		span.style.backgroundPositionX = (item.floor + 1) * 20 + 'px';
 		li.appendChild(span);
-		if (item.child) {
+		if (item.child.length > 0) {
 			span.className = 'open';
 			var ul = document.createElement('ul');
 			createTree(ul, item.child);

@@ -15,13 +15,15 @@ var Data = {
 				name: 'JS课程',
 				id: 2,
 				pId: 1,
-				type: 'folder'
+				type: 'folder',
+				child: []
 			}, {
 				floor: 2,
 				name: 'HTML课程',
 				id: 3,
 				pId: 1,
-				type: 'folder'
+				type: 'folder',
+				child: []
 			}, {
 				floor: 2,
 				name: 'CSS课程',
@@ -33,19 +35,22 @@ var Data = {
 					name: '课程1',
 					id: 5,
 					pId: 4,
-					type: 'folder'
+					type: 'folder',
+					child: []
 				}, {
 					floor: 3,
 					name: '课程2',
 					id: 6,
 					pId: 4,
-					type: 'folder'
+					type: 'folder',
+					child: []
 				}, {
 					floor: 3,
 					name: '课程3',
 					id: 7,
 					pId: 4,
-					type: 'folder'
+					type: 'folder',
+					child: []
 				}]
 			}]
 		}]
