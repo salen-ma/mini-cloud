@@ -1,57 +1,41 @@
 var Data = {
 	files: [{
-		floor: 0,
 		name: '微云',
+		floor:0,
 		id: 0,
+		maxId:7,
 		type: 'root',
 		child: [{
-			floor: 1,
 			name: '前端课程',
+			floor:1,
 			id: 1,
 			pId: 0,
 			type: 'folder',
-			child: [{
-				floor: 2,
+			checked:false,
+			child: [{	
 				name: 'JS课程',
+				floor:2,
 				id: 2,
 				pId: 1,
 				type: 'folder',
+				checked:false,
 				child: []
-			}, {
-				floor: 2,
+			}, {	
 				name: 'HTML课程',
+				floor:2,
 				id: 3,
 				pId: 1,
 				type: 'folder',
+				checked:false,
 				child: []
-			}, {
-				floor: 2,
+			}, {	
 				name: 'CSS课程',
+				floor:2,
 				id: 4,
 				pId: 1,
 				type: 'folder',
-				child: [{
-					floor: 3,
-					name: '课程1',
-					id: 5,
-					pId: 4,
-					type: 'folder',
-					child: []
-				}, {
-					floor: 3,
-					name: '课程2',
-					id: 6,
-					pId: 4,
-					type: 'folder',
-					child: []
-				}, {
-					floor: 3,
-					name: '课程3',
-					id: 7,
-					pId: 4,
-					type: 'folder',
-					child: []
-				}]
+				checked:false,
+				child: []
 			}]
 		}]
 	}]

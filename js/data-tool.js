@@ -34,19 +34,3 @@ cloud.getParentsById = function(data, id) {
 
 	return items;
 }
-
-//关联面包屑导航与其他
-function curmbNav() {
-	//所有面包屑
-	var crumbBtns = crumbs.querySelectorAll('a');
-	for (var i = 1; i < crumbBtns.length; i++) {
-		crumbBtns[i].onclick = function() {
-			createBtn.pId = this.dataset.id;
-			createBtn.floor = Number.parseInt(this.dataset.floor);
-			createFolderList(Data.files, this.dataset.id);
-			createCrumbs(crumbs, Data.files, this.dataset.id);
-			curmbNav()
-			createTree(fileTree, data);
-		}
-	}
-}

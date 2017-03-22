@@ -1,0 +1,183 @@
+.file-list{
+	width: 100%;
+	height: 100%;
+	box-sizing:border-box;
+}
+.file-list .icon{
+	display: inline-block;
+	width: 32px;
+	height: 28px;
+	margin:13px 0 0 13px;
+	background-position: -731px -385px;
+}
+.file-list .name,.file-list .rename{
+	width: 120px;
+	height: 28px;	
+	font: 16px/28px Arial;
+	margin:13px 0 0 13px;
+	vertical-align:top;	
+}
+.file-list .name{
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;	
+	cursor: default;
+}
+.file-list .rename{
+	width: 80px;
+	border:1px solid #d5d7df;
+	font: 16px/28px Arial;
+	margin:11px 0 0 13px;
+	vertical-align:top;	
+	display: none;
+}
+.file-list .name.active{
+	display:none;
+}
+.file-list .rename.active{
+	display:inline-block;
+}
+.file-list .checkbox{
+	width: 20px;
+	height: 20px;
+	border-radius: 2px;		
+}
+
+/*卡片*/
+.file-list.thumb-view{
+	padding-left:35px;
+}
+.file-list .thumb{
+	position:relative;
+	float:left;
+	width: 190px;
+	height: 46px;
+	border:2px solid #d5d7df;
+	border-radius: 3px;
+	margin:20px 20px 0 0;
+}
+.file-list .thumb .checkbox{
+	position:absolute;
+	top:-2px;
+	right: -2px;
+	border:2px solid rgba(0, 0, 0, 0);
+}
+.file-list .thumb:hover{
+	border-color:#389cff;
+}
+.file-list .thumb:hover .checkbox{
+	border-color:#389cff;
+}
+.file-list .thumb.checked{
+	border-color:#389cff;
+}
+.file-list .thumb.checked .checkbox{
+	border-color:#389cff;
+	background-position:-201px -924px;
+}
+
+/*列表*/
+.file-list .list{
+	position:relative;
+	width: 100%;
+	height: 54px;
+	box-sizing:border-box;
+	padding:0 35px;
+	border:1px solid rgba(0, 0, 0, 0);
+}
+.list:after{
+	content: "";
+	position:absolute;
+	bottom:-1px;
+	left: 35px;
+	width: calc(100% - 70px);
+	height: 1px;
+	background-color:#d5d7df;
+}
+.list .checkbox{
+	display:inline-block;
+	width: 16px;
+	height: 16px;
+	border:1px solid #d5d7df;
+	vertical-align:top;
+	margin-top: 22px;
+	background-color:#fff;
+}
+.list .fn-btn{
+	position:absolute;
+	top:0;
+	right:270px;
+	height: 100%;
+	display:none;
+}
+.list .fn-btn .icon{
+	display:inline-block;
+	width: 24px;
+	height: 24px;	
+	margin-left:20px;
+}
+.list .fn-btn .share-icon{
+	background-position:-600px -921px;
+}
+.list .fn-btn .down-icon{
+	background-position:-779px -921px;
+}
+.list .fn-btn .move-icon{
+	background-position:-828px -921px;
+}
+.list .fn-btn .delete-icon{
+	background-position:-651px -921px;
+}
+.list .fn-btn .rename-icon{
+	background-position:-862px -895px;
+}
+
+.list .fn-btn .share-icon:hover{
+	background-position:-750px -921px;
+}
+.list .fn-btn .down-icon:hover{
+	background-position:-977px -283px;
+}
+.list .fn-btn .move-icon:hover{
+	background-position:-853px -921px;
+}
+.list .fn-btn .delete-icon:hover{
+	background-position:-884px -870px;
+}
+.list .fn-btn .rename-icon:hover{
+	background-position:-803px -920px;
+}
+.list time{
+	position:absolute;
+	top:0;
+	right:35px;
+	height:100%;
+	font: 14px/54px Arial;
+	color:#74787c;
+}
+
+.file-list .list:hover{
+	background-color:#f3f9ff;
+	border-bottom:1px solid #c8e1ff;
+}
+.file-list .list:hover:after{
+	background-color:rgba(0, 0, 0, 0);
+}
+.file-list .list:hover .fn-btn{
+	display:block;
+}
+.file-list .list.checked{
+	background-color:#f3f9ff;
+	border-bottom:1px solid #c8e1ff;
+}
+.file-list .list.checked:after{
+	background-color:rgba(0, 0, 0, 0);
+}
+.file-list .list.checked .checkbox{
+	border-color:#389cff;
+	background-position:-248px -948px;
+}
+.file-list .list.checked .fn-btn{
+	display:block;
+}

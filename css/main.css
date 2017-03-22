@@ -1,0 +1,111 @@
+/*reset*/
+body,h1,p{
+	margin:0;
+}
+img{
+	vertical-align:top;
+	border:none;
+}
+a{
+	text-decoration:none;
+	color:#666;
+}
+ol,ul,li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+input{
+	margin:0;
+	padding: 0;
+	border:none;
+	outline: none;
+}
+
+/*tool*/
+.bg{
+	background: url(../img/sprits.png) no-repeat;
+	background-size: 1006px 965px;
+}
+.bg2{
+	background: url(../img/sprits2.png) no-repeat;
+	 background-size: 321px 297px;
+}
+
+/*main*/
+html,body{
+	height: 100%;
+	overflow: hidden;
+}
+.main{
+	width: 100%;
+    height: 100%;
+    min-width: 1024px;
+    position:relative;
+}
+.head{
+	position:fixed;
+	width: 100%;
+	min-width: 1024px;
+	height:60px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #e6e7ec;
+	background-color: #f5f6f9;
+	z-index:10;
+}
+.body{
+	display:flex;
+	width: 100%;
+	height:100%;
+	padding-top:60px;
+}
+.layout-aside{
+	width: 230px;
+	height:100%;
+	border-right: 1px solid #e6e7ec;
+}
+.user-pic{
+	display:inline-block;
+	width: 58px;
+	height: 58px;
+	padding:18px;
+	margin-top:16px;
+	margin-left:68px;
+	background-position: -912px -95px;
+}
+.user-pic img{
+	width: 58px;
+	height: 58px;
+	border-radius:50%;
+}
+
+.layout-main{
+	flex:1;
+	width: 100%;
+	height:100%;
+}
+.crumbs-wrap{
+	height:44px;
+	padding-left:35px;
+	padding-top:4px;
+	border-bottom:2px solid #e1e8ed;
+	background-color:#fff;
+	line-height:44px;
+	color:#999;	
+}
+.file-wrap{
+	width: 100%;
+	height: 100%;
+	box-sizing:border-box;
+}
+
+.mask{
+	position:absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color:rgba(255, 255, 255, .3);
+	z-index:100;
+	display:none;
+}
