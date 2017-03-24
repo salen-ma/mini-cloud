@@ -11,7 +11,7 @@
 	background-position: -731px -385px;
 }
 .file-list .name,.file-list .rename{
-	width: 120px;
+	max-width: 100px;
 	height: 28px;	
 	font: 16px/28px Arial;
 	margin:13px 0 0 13px;
@@ -180,4 +180,41 @@
 }
 .file-list .list.checked .fn-btn{
 	display:block;
+}
+
+/* 右键菜单 */
+.contextmenu{
+	position:absolute;
+	left: 0;
+	top: 0;
+    width: 160px;
+    height: 0px;
+    border: 1px solid #000;
+    background: rgba(220, 220, 220, 0.6);
+    list-style: none;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    display: none;
+    overflow: hidden;
+}
+.contextmenu li {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #000;
+    cursor:default;
+}
+.contextmenu li:last-of-type {
+    border-bottom: none;
+}
+.contextmenu li:hover{
+	background-color:#999;
+	color:#fff;
+}
+.contextmenu li.active{
+	background-color:#999;
+	color:#fff;	
 }

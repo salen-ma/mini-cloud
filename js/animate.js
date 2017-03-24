@@ -62,33 +62,15 @@ fq.animation = function (obj, attrs, duration, fx, fn){
         fn.call(obj);
       }
     }
-    // console.log((t/duration * 100).toFixed(1) + '%');
+
     for(var key in changeVal){
       var val = _this.Tween[fx](t, startVal[key], changeVal[key], duration);
       _this.css(obj, key, val);
     }
   })();
-  // clearInterval(obj.animate);
-  // obj.animate = setInterval(function() {
-  //   var t = Date.now() - startTime;
-  //   if(t > duration){
-  //     t = duration;
-  //     clearInterval(obj.animate);
-  //     obj.timer = null;
-  //   }
-  //   for(var key in changeVal){
-  //     var val = _this.Tween[fx](t, startVal[key], changeVal[key], duration);
-  //     _this.css(obj, key, val);
-  //   }
-  //   if(!obj.timer){
-  //     if(typeof fn === 'function'){
-  //       fn.call(obj);
-  //     }
-  //   }
-  // }, 4);
 };
 
-//
+// 获取元素
 function Fq(selector){
   var first = selector[0];
   var classArr = selector.split(' ');
@@ -125,17 +107,6 @@ fq.shake = function (obj, attr, nums, fn){
       }
     }
   })();
-  // clearInterval(obj.shake);
-  // obj.shake = setInterval(function() {
-  //   _this.css(obj, attr, iniAttrVal + arr[index++]);
-  //   if(index == arr.length){
-  //     clearInterval(obj.shake);
-  //     obj.shake = null;
-  //     if(typeof fn == 'function'){
-  //       fn.call(obj);
-  //     }
-  //   }
-  // }, 1000/60);
 };
 
 // 设置或者获取元素的css样式
@@ -299,6 +270,32 @@ fq.getRect = function (obj, type){
     break;
   }
 };
+
+// 拖拽
+fq.drapEle = function (eleDown, eleMove, scope){
+  eleDown.onmousedown = function (e){
+    e.preventDefault();
+    var dx = e.pageX - fq.getRect(eleMove, 'left');
+    var dy = e.pageY - fq.getRect(eleMove, 'top');
+    document.onmousemove = function (e){
+      var L = e.pageX - dx - fq.getRect(eleMove.offsetParent, 'left');
+      var T = e.pageY - dy - fq.getRect(eleMove.offsetParent, 'top');
+      
+      if(scope){
+        L = L <=0 ? 0 : L;
+        T = T <=0 ? 0 : T;
+        L = L > eleMove.offsetParent.clientWidth - eleMove.offsetWidth ? eleMove.offsetParent.clientWidth - eleMove.offsetWidth : L;
+        T = T > eleMove.offsetParent.clientHeight - eleMove.offsetHeight ? eleMove.offsetParent.clientHeight - eleMove.offsetHeight : T;
+      }
+      
+      eleMove.style.left = L + 'px';
+      eleMove.style.top = T + 'px';
+    };
+    document.onmouseup = function (){
+      this.onmouseup = this.onmousemove = null;
+    }
+  };
+}
 
 /**
  * 角度转弧度

@@ -109,3 +109,34 @@ html,body{
 	z-index:100;
 	display:none;
 }
+
+.main .alert-box{
+	position:absolute;
+	left: 45%;
+	top:-40px;
+	height:36px;
+	padding:0 15px 0 30px;
+	border-radius:15px;
+	font:18px/36px Arial;
+	color:#fff;
+	z-index:100;
+}
+.main .alert-box .icon{
+	display:inline-block;
+	width: 25px;
+	height: 25px;
+	vertical-align:top;
+	margin-top:6px;
+}
+.main .alert-box.success{
+	background-color:#79d463;
+}
+.main .alert-box.warn{
+	background-color:#fba40a;
+}
+.main .alert-box.success .icon{
+	background-position:-140px -195px;
+}
+.main .alert-box.warn .icon{
+	background-position:-165px -195px;
+}

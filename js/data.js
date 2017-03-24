@@ -7,6 +7,7 @@ var Data = {
 		type: 'root',
 		child: [{
 			name: '前端课程',
+			repeatNum:1,
 			floor:1,
 			id: 1,
 			pId: 0,
@@ -14,6 +15,7 @@ var Data = {
 			checked:false,
 			child: [{	
 				name: 'JS课程',
+				repeatNum:1,
 				floor:2,
 				id: 2,
 				pId: 1,
@@ -22,6 +24,7 @@ var Data = {
 				child: []
 			}, {	
 				name: 'HTML课程',
+				repeatNum:1,
 				floor:2,
 				id: 3,
 				pId: 1,
@@ -30,6 +33,7 @@ var Data = {
 				child: []
 			}, {	
 				name: 'CSS课程',
+				repeatNum:1,
 				floor:2,
 				id: 4,
 				pId: 1,

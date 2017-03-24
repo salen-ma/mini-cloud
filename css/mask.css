@@ -16,6 +16,7 @@
 	padding:0 18px;
 	border-bottom:1px solid #c8ccd3;
 	font:18px/60px Arial;
+	cursor:move;
 }
 .menu-head i{
 	font-size: 28px;
@@ -89,7 +90,7 @@
 	color:#fff;
 	border-color: #86c1fc;
 }
-.move-menu .alert-box{
+.move-menu .move-alert-box{
 	position:absolute;
 	bottom:-60px;
 	width: 100%;

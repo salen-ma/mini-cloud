@@ -1,7 +1,12 @@
 //新建文件夹
+createNewFolder.canCreate = true;
 createNewFolder.addEventListener('click',function(){
+	if(!this.canCreate){
+		return;
+	}
+
 	newFolder();
-	nameFolder();
+	nameFolder(this);
 });
 
 //新文件夹
@@ -21,6 +26,8 @@ function newFolder(){
                 </li>`
     }
 	folderWrap.innerHTML = str + folderWrap.innerHTML;
+
+	//不同视图行为
 	if(currentView === 'thumb'){
 		folderWrap.firstElementChild.children[1].focus();
 	}else{
@@ -28,7 +35,7 @@ function newFolder(){
 	}
 }
 //为新文件夹命名
-function nameFolder(){
+function nameFolder(obj){
 	var input = null;
 	if(currentView === 'thumb'){
 		input = folderWrap.firstElementChild.children[1];
@@ -36,20 +43,26 @@ function nameFolder(){
 		input = folderWrap.firstElementChild.children[2];
 	}	
 	input.onblur = function(){
-		var val = input.value;
+		var val = input.value.trim();
 		//取消新建
 		if(val === ''){
 			folderWrap.removeChild(folderWrap.firstElementChild);
+			view(currentId);
+			obj.canCreate = true;
+			showMainAlertBox('warn','取消新建');
 			return;
 		}else{
 			//命名冲突
 			if(!canUseName(currentData,val)){
 				input.focus();
 				input.value = '';
+				obj.canCreate = false;
+				showMainAlertBox('warn','命名冲突');
 			}else{
 				//生成数据，渲染新文件夹
 				var newFolderData = {
 					name:val,
+					repeatNum:1,
 					floor:currentFloor*1 + 1,
 					id:getMaxId(),
 					pId:currentId,
@@ -59,6 +72,8 @@ function nameFolder(){
 				}
 				currentData.unshift(newFolderData);
 				view(currentId);
+				obj.canCreate = true;
+				showMainAlertBox('success','新建成功');
 			}
 		}
 	}; 

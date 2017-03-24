@@ -5,9 +5,15 @@ var data = Data.files;
 var fileTree = document.querySelector('.file-tree');
 var folderWrap = document.querySelector('.file-list');
 var crumbs = document.querySelector('.bread-crumbs');
+var fileWrap = document.querySelector('.file-wrap');
+
+//提示框
+mainAlertBox = document.querySelector('.main .alert-box');
 
 //遮罩
 var mask = document.querySelector('.mask'),
+	moveMenu = mask.querySelector('.move-menu'),
+	menuHead = mask.querySelector('.menu-head'),
 	moveList = mask.querySelector('.file-tree'),
 	cancelMove = mask.querySelector('.cancel-move'),
 	sureMove = mask.querySelector('.sure-move'),
@@ -15,11 +21,14 @@ var mask = document.querySelector('.mask'),
 	checkedFileName = mask.querySelector('.checked-file-name'),
 	checkedCount = mask.querySelector('.checked-count'),
 	moveToTarget = mask.querySelector('.move-to-target'),
-	alertBox = mask.querySelector('.alert-box'),
+	moveAlertBox = mask.querySelector('.move-alert-box'),
 	nameRepeatMenu = mask.querySelector('.name-repeat-menu'),
 	cover = mask.querySelector('.cover'),
 	overName = mask.querySelector('.over-name'),
 	cancel = mask.querySelector('.cancel');
+
+//右键菜单
+var _contextmenu = document.querySelector('.contextmenu');
 
 //头部
 var initHead = document.querySelector('.head .init'),
@@ -67,4 +76,4 @@ var currentFloor = 0;
 var currentData = null;
 
 //当前文件
-var currentFiles = folderWrap.children;
+var currentFiles = folderWrap.querySelectorAll('li');

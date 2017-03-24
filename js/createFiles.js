@@ -4,10 +4,10 @@ function createFilesThumb(data, id) {
     var str = '';
 
     for (var i = 0; i < data.length; i++) {
-        str += `<li class="thumb" data-id="${data[i].id}" data-pid="${data[i].pId}" data-floor="${data[i].floor}">
-                    <i class="icon bg" data-id="${data[i].id}" data-floor="${data[i].floor}"></i>
+        str += `<li class="folder thumb" data-id="${data[i].id}" data-pid="${data[i].pId}" data-floor="${data[i].floor}">
+                    <i class="icon folder-icon bg" data-id="${data[i].id}" data-floor="${data[i].floor}"></i>
                     <span class="name" data-id="${data[i].id}" data-floor="${data[i].floor}">${data[i].name}</span>
-                    <input type="text" class="rename" value="${data[i].name}">
+                    <input type="text" class="rename" data-id="${data[i].id}" value="${data[i].name}">
                     <a href="javascript:;" class="checkbox bg"></a>
                 </li>`
     }
@@ -20,17 +20,17 @@ function createFilesList(data, id) {
     var str = '';
 
     for (var i = 0; i < data.length; i++) {
-        str += `<li class="list" data-id="${data[i].id}" data-pid="${data[i].pId}" data-floor="${data[i].floor}">
+        str += `<li class="folder list" data-id="${data[i].id}" data-pid="${data[i].pId}" data-floor="${data[i].floor}">
                     <a href="javascript:;" class="checkbox bg"></a>
-                    <i class="icon bg" data-id="${data[i].id}" data-floor="${data[i].floor}"></i>
+                    <i class="icon folder-icon bg" data-id="${data[i].id}" data-floor="${data[i].floor}"></i>
                     <span class="name" data-id="${data[i].id}" data-floor="${data[i].floor}">${data[i].name}</span>
-                    <input type="text" class="rename" value="${data[i].name}">
+                    <input type="text" class="rename" data-id="${data[i].id}" value="${data[i].name}">
                     <div class="fn-btn">
-                        <i class="icon share-icon bg"></i>
-                        <i class="icon down-icon bg"></i>
-                        <i class="icon move-icon bg"></i>
-                        <i class="icon delete-icon bg"></i>
-                        <i class="icon rename-icon bg"></i>             
+                        <i class="icon fn-icon share-icon bg" data-id="${data[i].id}"></i>
+                        <i class="icon fn-icon down-icon bg" data-id="${data[i].id}"></i>
+                        <i class="icon fn-icon move-icon bg" data-id="${data[i].id}"></i>
+                        <i class="icon fn-icon delete-icon bg" data-id="${data[i].id}"></i>
+                        <i class="icon fn-icon rename-icon bg" data-id="${data[i].id}"></i>             
                     </div>
                     <time>2017-3-21 15:50</time>                    
                 </li>`

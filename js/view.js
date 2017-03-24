@@ -3,7 +3,7 @@ view(currentId);
 //生成视图
 function view(currentId){
 	currentData = createFolderList(data, currentId);
-	currentFiles = folderWrap.children;
+	currentFiles = folderWrap.querySelectorAll('li');
 	createCrumbsView(data, currentId);
 	createTreeView(data);
 	cancelChecked();
@@ -57,5 +57,15 @@ function viewTag(){
 		viewList.classList.add('active');
 		viewThumb.classList.remove('active');		
 	}
-	currentData = createFolderList(data, currentId);
+	view(currentId);
 }
+
+//显示提示框
+function showMainAlertBox(type,info){
+	mainAlertBox.className = 'alert-box ' + type;
+	mainAlertBox.firstElementChild.innerHTML = info;
+	fq.css(mainAlertBox,{'left':(document.body.clientWidth/2) - (fq.css(mainAlertBox,'width')/2)});
+	fq.animation(mainAlertBox,{top:10},function(){
+		fq.animation(mainAlertBox,{top:-40})
+	});
+};
