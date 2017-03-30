@@ -39,8 +39,8 @@ function rename(span,input){
 			}else{
 				//改变数据，渲染新文件夹
 				targetFolderData = cloud.getDataById(currentData,this.dataset.id);	
-    			targetFolderData.name = newVal;		
-				view(currentId);
+    			targetFolderData.name = newVal;	
+				view(currentId,currentSort);
 				showMainAlertBox('success','命名成功');
 			}
 		}		
@@ -53,12 +53,25 @@ function rename(span,input){
 }
 
 //删除文件夹
-deleteBtn.addEventListener('click', function() {
-	deleteCheckedData();
-    //重新渲染
-    view(currentId);
-    showMainAlertBox('success','删除成功');
-});
+deleteBtn.addEventListener('click',deleteFolder);
+
+function deleteFolder(){
+	mask.style.display = 'block';
+	sureDeleteBox.style.display = 'flex';
+	sureDelete.onclick = function(){
+		mask.style.display = '';
+		sureDeleteBox.style.display = '';		
+		deleteCheckedData();
+	    //重新渲染
+	    view(currentId,currentSort);
+	    showMainAlertBox('success','删除成功');		
+	}
+	cancelDelete.onclick = function(){
+		mask.style.display = '';
+		sureDeleteBox.style.display = '';			
+		showMainAlertBox('warn','取消删除');	
+	}	
+};
 
 //----------------------------------------------------------------------------------------
 //获取目标索引
@@ -75,14 +88,12 @@ function getTargetIndex(){
 	}	
 };
 
-//删除/获取被选中的数据
+//删除被选中的数据
 function deleteCheckedData(){
-	var checkedData = [];
 	for(var i=0; i<currentData.length; i++){
 		if (currentData[i].checked) {
-            checkedData = checkedData.concat(currentData.splice(i, 1));
+            currentData.splice(i, 1);
             i--;
         }		
 	}	
-	return checkedData;
 };

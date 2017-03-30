@@ -8,7 +8,7 @@ fileTree.addEventListener('click',function(e){
 		};
 		currentId = target.dataset.id;
 		currentFloor = target.dataset.floor;
-		view(currentId);
+		view(currentId,currentSort);
 	}
 });
 
@@ -22,7 +22,7 @@ crumbs.addEventListener('click',function(e){
 		};
 		currentId = target.dataset.id;
 		currentFloor = target.dataset.floor;
-		view(currentId);
+		view(currentId,currentSort);
 	}
 });
 
@@ -36,7 +36,7 @@ folderWrap.addEventListener('click',function(e){
 		};
 		currentId = target.dataset.id;
 		currentFloor = target.dataset.floor;
-		view(currentId);
+		view(currentId,currentSort);
 	}
 
 	//点击重命名
@@ -55,15 +55,13 @@ folderWrap.addEventListener('click',function(e){
 	//点击删除
 	if(target.classList.contains('delete-icon')){
 		currentData.splice(currentData.indexOf(cloud.getDataById(currentData,target.dataset.id)),1);
-		view(currentId);
+		view(currentId,currentSort);
 	}
 
 	//点击移动
 	if(target.classList.contains('move-icon')){
-		var movedIdArr = [target.dataset.id];
 		var moveData = [cloud.getDataById(currentData,target.dataset.id)];
-
-		moveFolder(movedIdArr,moveData);		
+		moveFolder(moveData);		
 	}	
 
 
@@ -119,6 +117,7 @@ function isAllChecked(){
 
 //选中计数
 function countChecked(){
+	if(!currentData) return;
 	var count = 0;
 	for(var i=0; i<currentData.length; i++){
 		if(currentData[i].checked){
@@ -144,12 +143,13 @@ cancelSelect.addEventListener('click',cancelChecked);
 
 //取消选择
 function cancelChecked(){
+	if(!currentData) return;
 	for(var i=0; i<currentFiles.length; i++){
 		currentFiles[i].classList.remove('checked');
-		currentData[i].checked = false;
+		if(currentData[i]) currentData[i].checked = false;
 	};
 	checkAll.classList.remove('checked');
-	headTag();	
+	headTag();
 };
 
 //------------------------------------------------------------------------
@@ -206,7 +206,7 @@ fileWrap.addEventListener('contextmenu',function(e){
 	e.preventDefault();
 	if(_contextmenu.flag){
 		return;
-	}
+	};
 	_contextmenu.flag = true;
 
 	var target = e.target;
@@ -214,10 +214,10 @@ fileWrap.addEventListener('contextmenu',function(e){
     var x = e.pageX, y = e.pageY;
     if(window.innerWidth - x < fq.css(_contextmenu, 'width')){
         x = x - fq.css(_contextmenu, 'width');
-    }
+    };
     if(window.innerHeight - y < H){
         var flag = true;
-    }
+    };
     fq.css(_contextmenu, '');
     fq.css(_contextmenu, {
         display: 'flex',
@@ -229,7 +229,7 @@ fileWrap.addEventListener('contextmenu',function(e){
         fq.animation(_contextmenu, {height: H, top: y - H}, 'backOut');
     }else{
         fq.animation(_contextmenu, {height: H}, 'backOut');
-    }
+    };
 
     //右键空白处
     if(e.target.classList.contains('file-list')){
@@ -240,14 +240,13 @@ fileWrap.addEventListener('contextmenu',function(e){
 			if(!this.canCreate){
 				return;
 			}    	
-			cancelChecked();
 			newFolder();
 			nameFolder(this);    		
     	};
     	 //重命名
     	_contextmenu.children[1].onclick = function(){
     		fq.css(this.parentNode, '');
-    		if(getTargetIndex() === undefined){
+    		if(countChecked() < 1){
     			showMainAlertBox('warn','请选择文件');
     			return;
     		}
@@ -262,64 +261,60 @@ fileWrap.addEventListener('contextmenu',function(e){
 				input = currentFiles[index].children[3];
 			}	
 			rename(span,input);    		
-    	}   
+    	};   
     	//删除
     	_contextmenu.children[2].onclick = function(){
     		fq.css(this.parentNode, '');
-			if(!deleteCheckedData().length){
+			if(countChecked() < 1){
 				showMainAlertBox('warn','请选择文件');
 			}else{
-		    	//重新渲染
-			    view(currentId);
-			    showMainAlertBox('success','删除成功'); 
+				deleteFolder();
 		    };   		
-    	}	
+    	};	
     	//移动
 		_contextmenu.children[3].onclick = function(){
 			fq.css(this.parentNode, '');
-			if(!getCheckedId().length){
+			if(countChecked() < 1){
 				showMainAlertBox('warn','请选择文件');
 			}else{
-		    	moveFolder(getCheckedId(),getCheckedFolderData());
+		    	moveFolder(getCheckedFolderData());
 		    };   		
-    	}
+    	};
     	//打开
 		_contextmenu.children[4].onclick = function(){
 			fq.css(this.parentNode, '');
-			if(getTargetIndex() === undefined){
+			if(countChecked() < 1){
 				showMainAlertBox('warn','请选择文件');
 			}else{
 				currentId = currentData[getTargetIndex()].id;
-		    	view(currentId);
+		    	view(currentId,currentSort);
 		    };   		
-    	}
+    	};
     //右键文件夹    	    	
     }else{
 		if(target.nodeName.toUpperCase() === 'LI'){
-			cancelChecked();
 			target.classList.add('checked');
 			isFolderChecked(target,target.dataset.id);
 			headTag();
 		}else if(target.classList.contains('fn-icon')){
-			cancelChecked();
 			target.parentNode.parentNode.classList.add('checked');
 			isFolderChecked(target.parentNode.parentNode,target.parentNode.parentNode.dataset.id);
 			headTag();			
 		}else{
-			cancelChecked();
 			target.parentNode.classList.add('checked');
 			isFolderChecked(target.parentNode,target.parentNode.dataset.id);
 			headTag();			
-		}  
-
+		};  
+		if(isAllChecked()){
+			checkAll.classList.add('checked');
+		};		
 		//新建
     	_contextmenu.children[0].canCreate = true;
     	_contextmenu.children[0].onclick = function(){
     		fq.css(this.parentNode, '');
 			if(!this.canCreate){
 				return;
-			}    	
-			cancelChecked();
+			};    	
 			newFolder();
 			nameFolder(this);    		
     	};
@@ -335,29 +330,26 @@ fileWrap.addEventListener('contextmenu',function(e){
 			}else{
 				span = currentFiles[index].children[2];
 				input = currentFiles[index].children[3];
-			}	
+			};	
 
 			rename(span,input);    		
-    	}   
+    	};   
     	//删除
     	_contextmenu.children[2].onclick = function(){
     		fq.css(this.parentNode, '');
-			deleteCheckedData();
-		    //重新渲染
-		    view(currentId);
-		    showMainAlertBox('success','删除成功');  		
-    	}	
+			deleteFolder();  		
+    	};	
     	//移动
 		_contextmenu.children[3].onclick = function(){
 			fq.css(this.parentNode, '');
-		    moveFolder(getCheckedId(),getCheckedFolderData()); 		
-    	}
+		    moveFolder(getCheckedFolderData()); 		
+    	};
     	//打开
 		_contextmenu.children[4].onclick = function(){
 			fq.css(this.parentNode, '');
 			currentId = currentData[getTargetIndex()].id;
-	    	view(currentId);  		
-    	}			
+	    	view(currentId,currentSort);		
+    	};			
     }	
 });
 

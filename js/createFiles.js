@@ -32,7 +32,7 @@ function createFilesList(data, id) {
                         <i class="icon fn-icon delete-icon bg" data-id="${data[i].id}"></i>
                         <i class="icon fn-icon rename-icon bg" data-id="${data[i].id}"></i>             
                     </div>
-                    <time>2017-3-21 15:50</time>                    
+                    <time>${data[i].time}</time>                    
                 </li>`
     }
     return str;

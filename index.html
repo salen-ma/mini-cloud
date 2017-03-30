@@ -14,10 +14,12 @@
 </head>
 <body>
 	<section class="main">
+		<!-- 信息框 -->
 		<span class="alert-box">
 			<span>命名成功</span>
 			<i class="icon bg2"></i>
 		</span>
+		<!-- 头部 -->
 		<header class="head">
 			<div class="init">
 				<h1 class="logo">
@@ -121,109 +123,25 @@
 				</div>
 			</div>
 		</header>
+		<!-- 主体 -->
 		<div class="body">
+			<!-- 侧边栏 -->
 			<div class="layout-aside">
 				<div class="user-pic bg"><img src="img/user_pic.png" alt=""></div>
-				<ul class="file-tree">
-					<!-- <li>
-						<span class="open">
-							<i class="bg"></i>
-							微云
-						</span>
-						<ul>
-							<li>
-								<span class="open">
-									<i class="bg"></i>
-									JS课程
-								</span>
-								<ul>
-									<li>
-										<span class="open close">
-											<i class="bg"></i>
-											123
-										</span>
-									</li>
-									<li>
-										<span class="open close">333</span>
-									</li>
-									<li>
-										<span class="open">CSS课程</span>
-										<ul>
-											<li>
-												<span class="open close">CSS课程</span>
-											</li>
-											<li>
-												<span class="open close">123</span>
-											</li>
-											<li>
-												<span class="open close">JS基础课程</span>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li> -->					
-				</ul>
+				<!-- 文件树 -->
+				<ul class="file-tree"></ul>
 			</div>
+			<!-- 主体布局 -->
 			<div class="layout-main">
+				<!-- 面包屑导航 -->
 				<div class="crumbs-wrap">
 					<a href="javascript:;" class="checkbox bg"></a>
 					<span class="next">|</span>					
-					<div class="bread-crumbs">
-						<!-- <a href="javascript:;">微云</a>
-						<span class="next">></span>
-						<a href="javascript:;">JS课程</a>
-						<span class="next">></span>
-						<a href="javascript:;">CSS课程</a>
-						<span class="next">></span>
-						<a href="javascript:;" class="last-crumbs">
-							JS基础课程
-						</a>	 -->				
-					</div>
+					<div class="bread-crumbs"></div>
 				</div>
+				<!-- 文件区域 -->
 				<div class="file-wrap">
-					<ol class="file-list thumb-view">
-						<!-- <li class="thumb checked">
-							<i class="icon bg"></i>
-							<span class="name">aaa</span>
-							<input type="text" class="rename">
-							<a href="javascript:;" class="checkbox bg"></a>
-						</li>
-						<li class="thumb">
-							<i class="icon bg"></i>
-							<span class="name">aaa</span>
-							<input type="text" class="rename">
-							<a href="javascript:;" class="checkbox"></a>
-						</li> -->	
-						<!-- <li class="list checked">
-							<a href="javascript:;" class="checkbox bg"></a>
-							<i class="icon bg"></i>
-							<span class="name">aaa</span>
-							<input type="text" class="rename">
-							<div class="fn-btn">
-								<i class="icon share-icon bg"></i>
-								<i class="icon down-icon bg"></i>
-								<i class="icon move-icon bg"></i>
-								<i class="icon delete-icon bg"></i>
-								<i class="icon rename-icon bg"></i>				
-							</div>
-							<time>2017-3-21 15:50</time>								
-						</li>
-						<li class="list checked">
-							<a href="javascript:;" class="checkbox bg"></a>
-							<i class="icon bg"></i>
-							<span class="name">aaa</span>
-							<input type="text" class="rename">
-							<div class="fn-btn">
-								<i class="icon share-icon bg"></i>
-								<i class="icon down-icon bg"></i>
-								<i class="icon move-icon bg"></i>
-								<i class="icon delete-icon bg"></i>
-								<i class="icon rename-icon bg"></i>				
-							</div>							
-						</li> -->
-					</ol>
+					<ol class="file-list thumb-view"></ol>
 					<ul class="contextmenu">
 						<li class="menu-item create">新建</li>
 					    <li class="menu-item rename">重命名</li>
@@ -235,7 +153,17 @@
 				</div>
 			</div>
 		</div>
+		<!-- 遮罩层 -->
 		<div class="mask">
+			<!-- 删除确认框 -->
+			<div class="sure-delete">
+				<p>确认删除吗？</p>
+				<div class="btn-wrap">
+					<span class="sure">确认</span>
+					<span class="cancel">取消</span>
+				</div>
+			</div>
+			<!-- 移动菜单 -->			
 			<div class="move-menu">
 				<div class="menu-head">
 					选择存储位置

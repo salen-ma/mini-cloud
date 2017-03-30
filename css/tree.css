@@ -38,3 +38,6 @@
 .file-tree li span.active{
 	background-color: #eee;
 }
+.file-tree li span:hover{
+	background-color: #eee;
+}

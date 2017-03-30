@@ -1,6 +1,6 @@
 //移动文件
 moveBtn.addEventListener('click',function(){
-	moveFolder(getCheckedId(),getCheckedFolderData());
+	moveFolder(getCheckedFolderData());
 });
 
 //拖拽移动菜单
@@ -8,29 +8,49 @@ fq.drapEle(menuHead,moveMenu,true);
 
 //------------------------------------------------------------------------------------
 //移动文件函数
-function moveFolder(movedIdArr,moveData){
+function moveFolder(moveData){
+	if(currentId == 0 && countChecked() == currentFiles.length){
+		showMainAlertBox('warn','没有可移动到的文件夹');
+		return;
+	};
+
 	var targetId = currentId;
 	var targetFloor = currentFloor;		
 
 	//渲染移动菜单
 	mask.style.display = 'block';
+	moveMenu.style.display = 'block';
 	checkedFileName.innerHTML = moveData[0].name;
 	checkedCount.innerHTML = moveData.length > 1 ? `等${moveData.length}个文件` : '';
-	moveList.innerHTML = createTree(data);
+	moveList.innerHTML = createTree(data,targetId);
 
-	//选择目标文件夹
-	selectTargetFolder(movedIdArr);
+	//选择要移动到的目标文件夹
+	moveList.onclick = function(e){
+		var target = e.target;
+		if(target.nodeName.toUpperCase() === 'SPAN' || target.nodeName.toUpperCase() === 'I'){
+			targetId = target.dataset.id;
+			targetFloor = target.dataset.floor;
+			moveToTarget.innerHTML = `移动到: ${target.dataset.name}`;
+			moveList.innerHTML = createTree(data,targetId);
 
+			if(targetId == currentId){
+				moveAlertBox.innerHTML = '已经在该文件夹内';
+				showMoveAlertBox();
+			}			
+		}					
+	};
+
+	//确定移动
 	sureMove.onclick = function(){
 		if(targetId == currentId){
 			moveAlertBox.innerHTML = '已经在该文件夹内';
 			showMoveAlertBox();
-		}else if(!canMove(targetId,getCheckedId())){
-			moveAlertBox.innerHTML = '不能移动到自身或自身的子文件夹内';
-			showMoveAlertBox();	
 		}else{
+			//移动前目标文件夹数据
 			var beforeMoveData = cloud.getChildrenById(data,targetId);
+			//重名的目标文件夹数据
 			var targetSameNameData = getSameNameData(targetId,moveData).targetSameNameData;
+			//重名的选择文件夹数据
 			var checkedSameNameData = getSameNameData(targetId,moveData).checkedSameNameData;
 
 			if(targetSameNameData.length){
@@ -40,112 +60,51 @@ function moveFolder(movedIdArr,moveData){
 					//覆盖重名文件
 					coverSameNameFolder(targetSameNameData,beforeMoveData);	
 					nameRepeatMenu.style.display = '';	
-					moveDown();					
+					moveDown(targetId);					
 				}
 
 				overName.onclick = function(){
 					//重命名重名文件
-					renameSameNameFolder(checkedSameNameData,currentData,countSameNameNum(targetSameNameData,beforeMoveData));	
+					renameSameNameFolder(checkedSameNameData,currentData,sameNameCount(targetSameNameData,beforeMoveData));	
 					nameRepeatMenu.style.display = '';	
-					moveDown();					
+					moveDown(targetId);					
 				}
 
 				cancel.onclick = function(){
 					nameRepeatMenu.style.display = '';					
 				}
 			}else{
-				moveDown();
+				moveDown(targetId);
 			}
 		}
-
-		function moveDown(){
+		//移动成功
+		function moveDown(targetId){
 			changePidFloor(moveData,targetId,targetFloor);
 			var afterMoveData = beforeMoveData.concat(moveData);
 			deleteMoveData(moveData);
 			cloud.getDataById(data,targetId).child = afterMoveData;
-			view(currentId);
+			currentId = targetId;
+
+			//重新渲染
+			view(currentId,currentSort);
 			mask.style.display = '';	
+			moveMenu.style.display = '';
 			showMainAlertBox('success','移动成功');		
-		}	
+		};	
 	}
 
+	//取消/关闭移动
 	cancelMove.addEventListener('click',function(){
 		mask.style.display = '';
+		moveMenu.style.display = '';
 	});
 	closeMask.addEventListener('click',function(){
 		mask.style.display = '';
-	});
-
-	function selectTargetFolder(movedIdArr){
-		var spans = moveList.querySelectorAll('span');
-		for(var i=0; i<spans.length; i++){
-			spans[i].classList.remove('active');
-			spans[i].flag = true;
-
-			spans[i].onmouseover = function(){
-				this.classList.add('active');
-			}
-			spans[i].onmouseout = function(){
-				if(this.flag){
-					this.classList.remove('active');
-				}
-			}
-
-			spans[i].onclick = function(){
-				for(var i=0; i<spans.length; i++){
-					spans[i].classList.remove('active');
-					spans[i].flag = true;
-				}
-				this.classList.add('active');
-				this.flag = false;
-				targetId = this.dataset.id;
-				targetFloor = this.dataset.floor;
-				moveToTarget.innerHTML = `移动到: ${this.dataset.name}`;
-				if(targetId == currentId){
-					moveAlertBox.innerHTML = '已经在该文件夹内';
-					showMoveAlertBox();
-				}else if(!canMove(targetId,movedIdArr)){
-					moveAlertBox.innerHTML = '不能移动到自身或自身的子文件夹内';
-					showMoveAlertBox();			
-				}			
-			}				
-		}	
-	}	
+		moveMenu.style.display = '';
+	});	
 }
 
 //------------------------------------------------------------------------------------
-//获取被选中的id
-function getCheckedId(){
-	var checkedFolderId = [];
-	for(var i=0; i<currentData.length; i++){
-		if (currentData[i].checked) {
-            checkedFolderId.push(currentData[i].id);
-        }		
-	}	
-	return checkedFolderId;	
-}
-
-//判断是否是子文件夹
-function isChildFolder(thisId,childId){
-	var arr = cloud.getParentsById(data,childId);
-	for(var i=0; i<arr.length; i++){
-		if(arr[i].pId == thisId){
-			return true;
-		}
-	}
-	return false;
-}
-
-//判断能否移动
-function canMove(targetId,movedIdArr){
-	for(var i=0; i<movedIdArr.length; i++){
-		if(isChildFolder(movedIdArr[i],targetId) || targetId == movedIdArr[i]){
-			return false;
-		}
-	}	
-	return true;
-}
-
 //获取被选中的数据
 function getCheckedFolderData(){
 	var checkedFolderData = [];
@@ -157,7 +116,7 @@ function getCheckedFolderData(){
 	return checkedFolderData;
 }
 
-////删除移动走的数据
+//删除移动走的数据
 function deleteMoveData(moveData){
 	for(var i=0; i<moveData.length; i++){
 		currentData.splice(currentData.indexOf(moveData[i]),1)	
@@ -207,23 +166,24 @@ function coverSameNameFolder(sameNameData,data){
 	for(var i=0; i<sameNameData.length; i++){
 		data.splice(data.indexOf(sameNameData[i]),1);
 	}
-}
+};
+
 
 //计数历史重名数量
-function countSameNameNum(sameNameData,data){
+function sameNameCount(sameNameData,data){
 	var num = [];
 	for(var i=0; i<sameNameData.length; i++){
 		num.push(++(data[data.indexOf(sameNameData[i])].repeatNum));
 	}
 	return num;
-}
+};
 
 //改名重名文件
 function renameSameNameFolder(sameNameData,data,repeatCount){
 	for(var i=0; i<sameNameData.length; i++){
 		data[data.indexOf(sameNameData[i])].name = data[data.indexOf(sameNameData[i])].name + `(${repeatCount[i]})`;
 	}
-}
+};
 
 
 //移动成功后改变被移动文件夹的pid,floor
@@ -232,7 +192,7 @@ function changePidFloor(data,id,floor){
         data[i].pId = id*1;
         data[i].floor = floor*1 + 1;	
 	}	
-}
+};
 
 //显示提示信息
 function showMoveAlertBox(){
@@ -241,4 +201,4 @@ function showMoveAlertBox(){
 			fq.animation(moveAlertBox,{bottom:-60})
 		},500)	
 	});	
-}
+};

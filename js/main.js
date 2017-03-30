@@ -2,46 +2,51 @@
 var data = Data.files;
 
 // 容器
-var fileTree = document.querySelector('.file-tree');
-var folderWrap = document.querySelector('.file-list');
-var crumbs = document.querySelector('.bread-crumbs');
-var fileWrap = document.querySelector('.file-wrap');
+var fileTree = Fq('.layout-aside .file-tree');
+var folderWrap = Fq('.file-list');
+var crumbs = Fq('.bread-crumbs');
+var fileWrap = Fq('.file-wrap');
 
 //提示框
-mainAlertBox = document.querySelector('.main .alert-box');
+mainAlertBox = Fq('.main .alert-box');
 
 //遮罩
-var mask = document.querySelector('.mask'),
-	moveMenu = mask.querySelector('.move-menu'),
-	menuHead = mask.querySelector('.menu-head'),
-	moveList = mask.querySelector('.file-tree'),
-	cancelMove = mask.querySelector('.cancel-move'),
-	sureMove = mask.querySelector('.sure-move'),
-	closeMask = mask.querySelector('.close-mask'),
-	checkedFileName = mask.querySelector('.checked-file-name'),
-	checkedCount = mask.querySelector('.checked-count'),
-	moveToTarget = mask.querySelector('.move-to-target'),
-	moveAlertBox = mask.querySelector('.move-alert-box'),
-	nameRepeatMenu = mask.querySelector('.name-repeat-menu'),
-	cover = mask.querySelector('.cover'),
-	overName = mask.querySelector('.over-name'),
-	cancel = mask.querySelector('.cancel');
+var mask = Fq('.mask');
+//移动菜单
+var	moveMenu = Fq('.move-menu'),
+	menuHead = Fq('.menu-head'),
+	moveList = Fq('.menu-list .file-tree'),
+	cancelMove = Fq('.cancel-move'),
+	sureMove = Fq('.sure-move'),
+	closeMask = Fq('.close-mask'),
+	checkedFileName = Fq('.checked-file-name'),
+	checkedCount = Fq('.checked-count'),
+	moveToTarget = Fq('.move-to-target'),
+	moveAlertBox = Fq('.move-alert-box'),
+	nameRepeatMenu = Fq('.name-repeat-menu'),
+	cover = Fq('.cover'),
+	overName = Fq('.over-name'),
+	cancel = Fq('.cancel');
+//确认删除菜单
+var sureDeleteBox = Fq('.sure-delete'),
+	sureDelete = Fq('.sure-delete .sure'),
+	cancelDelete = Fq('.sure-delete .cancel');
 
 //右键菜单
-var _contextmenu = document.querySelector('.contextmenu');
+var _contextmenu = Fq('.contextmenu');
 
 //头部
-var initHead = document.querySelector('.head .init'),
-	checkedHead = document.querySelector('.head .checked');
+var initHead = Fq('.head .init'),
+	checkedHead = Fq('.head .checked');
 
-var selectSum = checkedHead.querySelector('.head .sum-select'),
-	cancelSelect = checkedHead.querySelector('.head .cancel-select');
+var selectSum = Fq('.head .sum-select'),
+	cancelSelect = Fq('.head .cancel-select');
 
 //全选框
-var checkAll = document.querySelector('.crumbs-wrap .checkbox');
+var checkAll = Fq('.crumbs-wrap .checkbox');
 
 //控制按钮
-var btns = document.querySelectorAll('.checked .fn-btn a');
+var btns = Fq('.checked .fn-btn a');
 var shareBtn = btns[0],
 	downBtn = btns[1],
 	moveBtn = btns[2],
@@ -49,7 +54,7 @@ var shareBtn = btns[0],
     deleteBtn = btns[4];
 
 //新建,上传按钮
-var uploadBtns = document.querySelectorAll('.upload-dropdown li');
+var uploadBtns = Fq('.upload-dropdown li');
 var uploadFile = uploadBtns[0],
 	uploadFolder = uploadBtns[1],
 	offlineDown = uploadBtns[2],
@@ -57,14 +62,16 @@ var uploadFile = uploadBtns[0],
 	addNote = uploadBtns[4];
 
 //视图按钮
-var viewList = document.querySelector('.view-list'),
-	viewThumb = document.querySelector('.view-thumb');
+var viewList = Fq('.view-list'),
+	viewThumb = Fq('.view-thumb');
 //当前视图
 var currentView = 'thumb';
 
 //排序按钮
-var timeSort = document.querySelector('.time-sort'),
-	letterSort = document.querySelector('.letter-sort');
+var timeSort = Fq('.time-sort'),
+	letterSort = Fq('.letter-sort');
+//当前排序
+var currentSort = 'time';
 
 //当前id
 var currentId = 0;
@@ -76,4 +83,4 @@ var currentFloor = 0;
 var currentData = null;
 
 //当前文件
-var currentFiles = folderWrap.querySelectorAll('li');
+var currentFiles = Fq('.file-list li');

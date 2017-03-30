@@ -66,12 +66,15 @@ function nameFolder(obj){
 					floor:currentFloor*1 + 1,
 					id:getMaxId(),
 					pId:currentId,
+					time:cloud.getNowTime(),
+					timeStamp:Date.now(),					
 					type: 'folder',
 					checked:false,
 					child: []					
 				}
+
 				currentData.unshift(newFolderData);
-				view(currentId);
+				view(currentId,currentSort);
 				obj.canCreate = true;
 				showMainAlertBox('success','新建成功');
 			}
@@ -79,6 +82,7 @@ function nameFolder(obj){
 	}; 
 };
 
+//判断是否重名
 function canUseName(data,val){
 	for (var i = 0; i < data.length; i++) {
 		if (val === data[i].name) {
@@ -86,8 +90,9 @@ function canUseName(data,val){
 		};
 	};	
 	return true;
-}
+};
 
+//id加1
 function getMaxId() {
 	return ++data[0].maxId;
-}
+};
